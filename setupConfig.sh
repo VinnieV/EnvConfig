@@ -106,10 +106,10 @@ printf "${GREEN}Disabling the terminal bell\n${NC}"
 if [ -f "/etc/inputrc" ]; then
     INPUTRC=$(cat /etc/inputrc)
     if [[ $INPUTRC == *"# set bell-style none"* ]]; then
-        sudo echo "set bellstyle none" >> /etc/inputrc
+        sudo echo "set bell-style none" >> /etc/inputrc
     fi
 else
-    sudo echo "set bellstyle none" > /etc/inputrc
+    sudo echo "set bell-style none" > /etc/inputrc
 fi
 
 
