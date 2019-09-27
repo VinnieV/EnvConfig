@@ -33,7 +33,7 @@ fi
 
 # Installing tools
 printf "${GREEN}Installing tools\n${NC}"
-sudo apt-get install git vim >> /dev/null
+sudo apt-get -y install git vim >> /dev/null
 
 
 # Configure vimrc
@@ -46,7 +46,8 @@ cat Files/vimrc.conf > ~/.vimrc
 ############
 # Install required packages
 printf "${GREEN}Installing i3 i3blocks i3lock feh compton rofi scrot and thunar\n${NC}"
-sudo apt-get install i3 i3blocks i3lock feh compton rofi thunar scrot slim >> /dev/null
+sudo apt-get -y install i3 i3blocks i3lock feh compton rofi thunar scrot >> /dev/null
+sudo apt-get -y install slim
 
 # Creating i3 config dir
 printf "${GREEN}Creating i3 diretory\n${NC}"
@@ -102,10 +103,15 @@ sudo cp -R Files/GTK-dark-theme /usr/share/themes/dark-theme
 ############
 # Disable bell sound
 printf "${GREEN}Disabling the terminal bell\n${NC}"
-INPUTRC=$(cat /etc/inputrc)
-if [[ $INPUTRC == *"# set bell-style none"* ]]; then
-    sudo echo "set bellstyle none" >> /etc/inputrc
+if [ -f "/etc/inputrc" ]; then
+    INPUTRC=$(cat /etc/inputrc)
+    if [[ $INPUTRC == *"# set bell-style none"* ]]; then
+        sudo echo "set bellstyle none" >> /etc/inputrc
+    fi
+else
+    sudo echo "set bellstyle none" > /etc/inputrc
 fi
+
 
 # Making sure i3 start after login
 printf "${GREEN}Set default WM to i3\n${NC}"
